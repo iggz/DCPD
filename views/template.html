@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Digitalcrafts Topics | ${title}</title>
+        <title>Digitalcrafts Project Database | ${title}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
@@ -9,9 +9,19 @@
     <body>
         <nav class="navbar main-nav is-dark" role="navigation" aria-label="main navigation">
             <div class="navbar-start">
-                <a class="navbar-item" href='/'>Home</a>
+                <a class="navbar-item" href='/projects'>Home</a>
+                <a class="navbar-item" href='/projects/submit'>Submit a Project</a>
             </div>
-            
+
+            ${!!is_logged_in ? `
+                <div class="navbar-end">
+                    <a class="navbar-item" href='/users/logout'>Logout</a>
+                </div>
+            ` : `
+                <div class="navbar-end">
+                    <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team&client_id=664818342999.665110278982"><img alt=""Sign in with Slack"" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
+                </div>
+            `}
         </nav>
         <h1 class="title">${title}</h1>
         <main class="container">${partial}</main>

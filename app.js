@@ -12,6 +12,7 @@ const indexRouter = require('./routes/index'),
 
 const app = express();
 
+//App setup
 app.set('views', 'views');
 app.engine('html', es6Renderer);
 app.set('view engine', 'html');
@@ -27,7 +28,13 @@ app.use(session({
     resave: false,
     saveUninitialized: true, 
     is_logged_in: false
-}))
+}));
+
+app.use(require('body-parser').urlencoded({ extended: true }));
+
+// Define routes
+const indexRouter = require('./routes/index'),
+    usersRouter = require('./routes/users');
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
