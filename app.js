@@ -6,6 +6,10 @@ const express = require('express'),
     cookieParser = require('cookie-parser'),
     logger = require('morgan');
 
+const indexRouter = require('./routes/index'),
+    usersRouter = require('./routes/users');
+    projectsRouter = require('./routes/projects')
+
 const app = express();
 
 //App setup
@@ -34,5 +38,6 @@ const indexRouter = require('./routes/index'),
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/projects', projectsRouter);
 
 module.exports = app;

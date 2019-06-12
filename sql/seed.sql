@@ -1,18 +1,20 @@
 insert into cohorts (
-    name,
-    location,
-    type
+    cohort_name,
+    cohort_location,
+    cohort_type,
+    start_month,
+    start_year
 )
 values (
-    'Atlanta Immersive April 2019', 'Atlanta, GA', 'Immersive'
+    'Atlanta Immersive April 2019', 'Atlanta, GA', 'Immersive', 4, 19
 );
 
 insert into projects (
-    name,
-    description,
+    project_name,
+    project_description,
     github_repo,
     cohort_id,
-    url,
+    project_url,
     added_date
 )
 values (
