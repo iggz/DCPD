@@ -2,11 +2,12 @@ const Projects = require('../models/projects');
 
 exports.projects_list_get = async (req, res) => {
     const projectsList = await Projects.getAllProjects();
-    console.log("projectsList:", projectsList);
+    const cohortsList = await Projects.getCohorts();
     res.render('template', {
         locals: {
             title: 'Projects List',
-            allProjects: projectsList
+            allProjects: projectsList,
+            allCohorts: cohortsList
         },
         partials: {
             partial: 'partial-projects'
@@ -16,7 +17,6 @@ exports.projects_list_get = async (req, res) => {
 
 exports.project_data_get = async (req,res) => {
     const projectData = await Projects.getProjectData(req.params.project_id);
-    console.log("projectData: ", projectData);
     res.render('template', {
         locals: {
             title: 'Projects Data',
