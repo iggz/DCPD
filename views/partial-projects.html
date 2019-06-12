@@ -13,11 +13,11 @@
     ${allProjects.map( project =>
     ` <tr>
         <td>${project.project_id}</td>
-        <td>${project.project_name}</td>
+        <td><a href="/projects/${project.project_id}">${project.project_name}</a></td>
         <td>${project.project_description}</td>
-        <td>${project.github_repo}</td>
+        <td><a href="https://${project.github_repo}">${project.github_repo}</a></td>
         <td>${project.cohort_name}</td>
-        <td>${project.project_url}</td>
+        <td><a href="https://${project.project_url}">${project.project_url}</a></td>
         <td>${project.added_date}</td>
     </tr>`
     ).join('')}
