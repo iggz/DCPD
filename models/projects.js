@@ -20,6 +20,20 @@ class Projects {
             return err.message
         }
     }
+
+    static async getProjectData(project_id) {
+        try {
+            const response = await db.one(`
+            select * from projects 
+            where id = $1
+            `, [project_id]);
+            return response;
+        } catch(err) {
+            return err.message;
+        }
+    }
+
+
 }
 
 module.exports = Projects;
