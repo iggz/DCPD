@@ -1,0 +1,28 @@
+<form action="/projects/add" method="POST">
+    <label>
+        Name
+        <input type="text" name="name"/>
+    </label>
+    <label>
+        Description
+        <input type="text" name="description"/>
+    </label>
+    <label>
+        GitHub Repo
+        <input type="text" name="github_repo" placeholder="https://github.com/yourUser/yourRepo"/>
+    </label>
+    <label>
+        Url
+        <input type="password" name="url" placeholder="www.yourProject.com"/>
+    </label>
+    <label>Cohort
+        <select name="cohort_id">
+            <option value = "Atlanta Immersive April 19"></option>
+            <!-- <option value = "2">⭐⭐</option>
+            <option value = "3">⭐⭐⭐</option>
+            <option value = "4">⭐⭐⭐⭐</option>
+            <option value = "5">⭐⭐⭐⭐⭐</option> -->
+        </select>
+    </label>
+    <button type="submit">Sign Up!</button>
+</form>
