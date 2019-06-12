@@ -1,0 +1,12 @@
+<ul>${allProjects.map( project =>
+    ` 
+        <li>${project.id}</li>
+        <li>${project.name}</li>
+        <li>${project.description}</li>
+        <li>${project.github_repo}</li>
+        <li>${project.cohort_id}</li>
+        <li>${project.url}</li>
+        <li>${project.added_date}</li>
+    `
+    ).join('')}
+    </ul>

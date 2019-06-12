@@ -8,6 +8,7 @@ const express = require('express'),
 
 const indexRouter = require('./routes/index'),
     usersRouter = require('./routes/users');
+    projectsRouter = require('./routes/projects')
 
 const app = express();
 
@@ -30,5 +31,6 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/projects', projectsRouter);
 
 module.exports = app;
