@@ -13,3 +13,17 @@ exports.projects_list_get = async (req, res) => {
         }
     });
 }
+
+exports.project_data_get = async (req,res) => {
+    const projectData = await Projects.getProjectData(req.params.project_id);
+    console.log("projectData: ", projectData);
+    res.render('template', {
+        locals: {
+            title: 'Projects Data',
+            oneProject: projectData
+        },
+        partials: {
+            partial: 'partial-one-project'
+        }
+    });
+}
