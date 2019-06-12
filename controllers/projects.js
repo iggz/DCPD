@@ -37,3 +37,16 @@ exports.project_post = async (req, res) => {
     await Projects.addProject(name, description, github_repo, cohort_id, url)
     res.redirect('/projects');
 }
+
+exports.add_project_page = async (req, res) => {
+    const cohortsList = await Projects.getCohorts();
+    res.render('template', {
+        locals: {
+            title: 'Submit a Project',
+            allCohorts: cohortsList
+        },
+        partials: {
+            partial: 'partial-add-project'
+        }
+    })
+}
