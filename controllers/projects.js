@@ -27,3 +27,13 @@ exports.project_data_get = async (req,res) => {
         }
     });
 }
+
+exports.project_post = async (req, res) => {
+    const name = req.body.name,
+        description = req.body.description,
+        github_repo = req.body.github_repo,
+        cohort_id = req.body.cohort_id,
+        url = req.body.url;
+    await Projects.addProject(name, description, github_repo, cohort_id, url)
+    res.redirect('/projects');
+}

@@ -33,7 +33,17 @@ class Projects {
         }
     }
 
-
+    static async addProject(name, description, github_repo, cohort_id, url) {
+        try {
+            const date = new Date()
+            const response = await db.one(`insert into projects (name, description, github_repo, cohort_id, url, added_date) values
+                            ($1, $2, $3, $4, $5, $6) returning id`, [name, description, github_repo, cohort_id, url, date]);
+            console.log("Project created with id:". response.id);
+            return response
+        } catch(err) {
+            return err.message
+        }
+    }
 }
 
 module.exports = Projects;

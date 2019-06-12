@@ -1,12 +1,53 @@
-<ul>${allProjects.map( project =>
-    ` 
-        <li>${project.id}</li>
-        <li>${project.name}</li>
-        <li>${project.description}</li>
-        <li>${project.github_repo}</li>
-        <li>${project.cohort_id}</li>
-        <li>${project.url}</li>
-        <li>${project.added_date}</li>
-    `
+<table class="table">
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>GitHub Repo</td>
+            <td>Cohort</td>
+            <td>URL</td>
+            <td>Added Date</td>
+        </tr>
+    </thead>
+    ${allProjects.map( project =>
+    ` <tr>
+        <td>${project.id}</td>
+        <td>${project.name}</td>
+        <td>${project.description}</td>
+        <td>${project.github_repo}</td>
+        <td>${project.cohort_id}</td>
+        <td>${project.url}</td>
+        <td>${project.added_date}</td>
+    </tr>`
     ).join('')}
-    </ul>
+</table>
+<form method="POST">
+    <label>
+        Name
+        <input type="text" name="name"/>
+    </label>
+    <label>
+        Description
+        <input type="text" name="description"/>
+    </label>
+    <label>
+        GitHub Repo
+        <input type="text" name="github_repo" placeholder="https://github.com/yourUser/yourRepo"/>
+    </label>
+    <label>
+        Url
+        <input type="text" name="url" placeholder="www.yourProject.com"/>
+    </label>
+    <label>Cohort
+        <select name="cohort_id">
+            <option value = "1">Atlanta Immersive April 19</option>
+            <!-- <option value = "2">⭐⭐</option>
+            <option value = "3">⭐⭐⭐</option>
+            <option value = "4">⭐⭐⭐⭐</option>
+            <option value = "5">⭐⭐⭐⭐⭐</option> -->
+        </select>
+    </label>
+    <br
+    ><button type="submit">Save Project</button>
+</form>
