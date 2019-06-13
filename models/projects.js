@@ -45,6 +45,16 @@ class Projects {
         }
     }
 
+    // async addTags(tagsList) {
+    //     //#javascript #node #express #postgresql
+    //     let tags = tagsList.split('#');
+    //     let trimTags = tags.map(tag=> tag.trim());
+    //     trimTags.shift()
+    //     trimTags.forEach( (tag) => {
+            
+    //     })
+    // }
+
     static async getCohorts() {
         try {
             const response = await db.any(`select * from cohorts`);
