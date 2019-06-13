@@ -3,11 +3,12 @@ const express = require('express'),
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    console.log(req.session.is_logged_in);
     res.render('template', {
         locals: {
             title: 'Digitalcrafts Project Database',
             is_logged_in: req.session.is_logged_in,
-            userName: req.session.first_name 
+            // userName: req.session.first_name 
         },
         partials: {
             partial: 'partial-index'
