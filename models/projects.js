@@ -53,6 +53,16 @@ class Projects {
             return err.message
         }
     }
+
+    static async getProjectsByCohort(cohort_id) {
+        try {
+            const response = (cohort_id ==="all") ? await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id`)
+            : await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id where p.cohort_id = ${cohort_id}`)
+            return response
+        } catch(err) {
+            return err.message
+        }
+    }
 }
 
 module.exports = Projects;

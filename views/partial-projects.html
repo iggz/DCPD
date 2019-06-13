@@ -1,3 +1,5 @@
+<form method="POST">
+    <button class="button" type="submit">Apply Filters</button>
 <table class="table">
     <thead>
         <tr>
@@ -5,13 +7,18 @@
             <td>Name</td>
             <td>Description</td>
             <td>GitHub Repo</td>
-            <td>Cohort</td>
+            <td>
+                <select id="cohort-selector" name="cohort_id">
+                    <option value = "all">Select Cohort</option>
+                    ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
+                </select>
+            </td>
             <td>URL</td>
             <td>Added Date</td>
         </tr>
     </thead>
     ${allProjects.map( project =>
-    ` <tr>
+    `<tr>
         <td>${project.project_id}</td>
         <td><a href="/projects/${project.project_id}">${project.project_name}</a></td>
         <td>${project.project_description}</td>
@@ -22,6 +29,7 @@
     </tr>`
     ).join('')}
 </table>
+</form>
 <!-- <form method="POST">
     <label>
         Name

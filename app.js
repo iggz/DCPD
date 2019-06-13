@@ -32,10 +32,6 @@ app.use(session({
 
 app.use(require('body-parser').urlencoded({ extended: true }));
 
-// Define routes
-const indexRouter = require('./routes/index'),
-    usersRouter = require('./routes/users');
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);

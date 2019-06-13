@@ -1,25 +1,33 @@
 <form method="POST">
-        <label>
-            Name
-            <input type="text" name="name"/>
-        </label>
-        <label>
-            Description
-            <input type="text" name="description"/>
-        </label>
-        <label>
-            GitHub Repo
+        <div class="control is-horizontal">
+            <label class="label">
+                Name:
+                <input type="text" name="name"/>
+            </label>
+        </div>
+        <div class="control">
+            <label class="label">
+                Description
+                <input class="textarea" type="text" name="description"/>
+            </label>
+        </div>
+        <div class="control">
+        <label class="label">
+            GitHub Repo:
             <input type="text" name="github_repo" placeholder="https://github.com/yourUser/yourRepo"/>
         </label>
-        <label>
-            Url
-            <input type="text" name="url" placeholder="www.yourProject.com"/>
+        </div>
+        <div class="control">
+            <label class="label">
+                Url:
+                <input type="text" name="url" placeholder="www.yourProject.com"/>
+            </label>
+        <label class="label">Cohort:
+            <div class="select" >
+                <select name="cohort_id">
+                    ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
+                </select>
+            </div>
         </label>
-        <label>Cohort
-            <select name="cohort_id">
-                ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
-            </select>
-        </label>
-        <br
-        ><button type="submit">Save Project</button>
+        <button class="button" type="submit">Save Project</button>
     </form>
