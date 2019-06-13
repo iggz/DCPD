@@ -52,7 +52,9 @@ exports.project_post = async (req, res) => {
         github_repo = req.body.github_repo,
         cohort_id = req.body.cohort_id,
         url = req.body.url;
-    await Projects.addProject(name, description, github_repo, cohort_id, url)
+        tags = req.body.tags;
+    let response = await Projects.addProject(name, description, github_repo, cohort_id, url)
+    await Projects.addTags(tags, response.project_id)
     res.redirect('/projects');
 }
 

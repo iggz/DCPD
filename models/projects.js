@@ -14,7 +14,7 @@ class Projects {
     static async getAllProjects() {
         try {
             const response = await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id order by p.project_id desc`);
-            console.log("response:", response)
+            // console.log("response:", response)
             return response;
         } catch(err) {
             return err.message
@@ -38,22 +38,30 @@ class Projects {
             const date = new Date()
             const response = await db.one(`insert into projects (project_name, project_description, github_repo, cohort_id, project_url, added_date) values
                             ($1, $2, $3, $4, $5, $6) returning project_id`, [project_name, project_description, github_repo, cohort_id, project_url, date]);
-            console.log("Project created with id:". response.project_id);
+            console.log("Project created with id:", response.project_id);
             return response
         } catch(err) {
             return err.message
         }
     }
 
-    // async addTags(tagsList) {
-    //     //#javascript #node #express #postgresql
-    //     let tags = tagsList.split('#');
-    //     let trimTags = tags.map(tag=> tag.trim());
-    //     trimTags.shift()
-    //     trimTags.forEach( (tag) => {
-            
-    //     })
-    // }
+    static async addTags(tagsList, project_id) {
+        //#javascript #node #express #postgresql
+        console.log("tags list:", tagsList)
+        let tags = tagsList.split('#');
+        let trimTags = tags.map(tag=> tag.trim());
+        trimTags.shift()
+        let lowerTags = trimTags.map(tag=> tag.toLowerCase())
+        console.log(lowerTags)
+        lowerTags.map(tag => {
+            try {
+                const response = db.any(`insert into tags (tag_text, project_id) values ('${tag}', ${project_id})`)
+                return response
+            } catch(err) {
+                return err.message
+            }
+        })
+    }
 
     static async getCohorts() {
         try {
