@@ -1,6 +1,6 @@
 const express = require('express'),
     session = require('express-session'),
-    FileStore = require('session-file-store')(session),
+    //FileStore = require('session-file-store')(session),
     es6Renderer = require('express-es6-template-engine'),
     path = require('path'),
     cookieParser = require('cookie-parser'),
@@ -10,7 +10,10 @@ const indexRouter = require('./routes/index'),
     usersRouter = require('./routes/users');
     projectsRouter = require('./routes/projects')
 
+
 const app = express();
+
+require('dotenv').config();
 
 //App setup
 app.set('views', 'views');
@@ -23,8 +26,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-    store: new FileStore(),
-    secret: 'get rad',
+    //store: new FileStore(),
+    secret: process.env['SESSION_SECRET'],
     resave: false,
     saveUninitialized: true, 
     is_logged_in: false
