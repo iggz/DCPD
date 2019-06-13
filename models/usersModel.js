@@ -50,11 +50,14 @@ class User {
     async getProfile() {
         try {
             const response = await db.one(`
-                select first_name, last_name, user_email, cohort_id
+                select first_name, last_name, user_email, cohort_name
                     from users
-                where users.id = $1`, [this.id]);
-            const { first_name, last_name, user_email, cohort_id } = response;
-            return { first_name, last_name, user_email, cohort_id };
+                inner join cohorts
+                    on users.cohort_id = cohorts.cohort_id
+                where users.user_email = $1`, [this.email]);
+            console.log(response);
+            const { first_name, last_name, user_email, cohort_name } = response;
+            return { first_name, last_name, user_email, cohort_name };
         } catch(err) {
             return err.message;
         }

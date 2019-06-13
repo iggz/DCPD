@@ -1,4 +1,7 @@
 <form method="POST">
+    <div class="tags are-medium ">
+        ${allTags.map(tag=> `<span class="tag is-primary">${tag.tag_text}</span>`).join('')}
+    </div>
     <button class="button" type="submit">Apply Filters</button>
 <table class="table">
     <thead>
