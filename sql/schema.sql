@@ -19,7 +19,7 @@ create table users (
 create table projects (
     project_id serial primary key,
     project_name varchar(200),
-    project_description text,
+    project_description varchar(280),
     github_repo varchar(200),
     cohort_id int references cohorts(cohort_id),
     project_url varchar(200),
