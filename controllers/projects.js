@@ -6,6 +6,7 @@ exports.projects_list_get = async (req, res) => {
     res.render('template', {
         locals: {
             title: 'Projects List',
+            is_logged_in: req.session.is_logged_in,
             allProjects: projectsList,
             allCohorts: cohortsList
         },
@@ -21,6 +22,7 @@ exports.projects_list_get_by_cohort = async (req, res) => {
     res.render('template', {
         locals: {
             title: 'Projects List',
+            is_logged_in: req.session.is_logged_in,
             allProjects: projectsList,
             allCohorts: cohortsList
         },
@@ -35,6 +37,7 @@ exports.project_data_get = async (req,res) => {
     res.render('template', {
         locals: {
             title: 'Projects Data',
+            is_logged_in: req.session.is_logged_in,
             oneProject: projectData
         },
         partials: {
@@ -58,6 +61,7 @@ exports.add_project_page = async (req, res) => {
     res.render('template', {
         locals: {
             title: 'Submit a Project',
+            is_logged_in: req.session.is_logged_in,
             allCohorts: cohortsList
         },
         partials: {
