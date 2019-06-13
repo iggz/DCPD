@@ -1,4 +1,5 @@
 const Users = require('../models/usersModel');
+const Projects = require('../models/projects');
 
 exports.profile_get = async (req, res) => {
     const email = req.session.email;
@@ -16,10 +17,12 @@ exports.profile_get = async (req, res) => {
     });
 }
 
-exports.signup_get = (req, res) => {
+exports.signup_get = async (req, res) => {
+    const cohortsList = await Projects.getCohorts();
     res.render('template', {
         locals: {
             title: 'User Signup',
+            allCohorts: cohortsList,
             is_logged_in: req.session.is_logged_in,
         },
         partials: {
@@ -29,10 +32,10 @@ exports.signup_get = (req, res) => {
 }
 
 exports.signup_post = (req, res) => {
-    const { first_name, last_name, email } = req.body;
+    const { first_name, last_name, email, cohort_id } = req.body;
 
     //create new user instance, with sign up info
-    const userInstance = new Users(null, first_name, last_name, email);
+    const userInstance = new Users(null, first_name, last_name, email, cohort_id);
 
     userInstance.save().then(() => {
         res.redirect('/');
