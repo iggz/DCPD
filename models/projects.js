@@ -13,7 +13,7 @@ class Projects {
 
     static async getAllProjects() {
         try {
-            const response = await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id`);
+            const response = await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id order by p.project_id desc`);
             console.log("response:", response)
             return response;
         } catch(err) {
@@ -56,8 +56,8 @@ class Projects {
 
     static async getProjectsByCohort(cohort_id) {
         try {
-            const response = (cohort_id ==="all") ? await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id`)
-            : await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id where p.cohort_id = ${cohort_id}`)
+            const response = (cohort_id === "all") ? await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id order by p.project_id desc`)
+            : await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id where p.cohort_id = ${cohort_id} order by p.project_id desc`)
             return response
         } catch(err) {
             return err.message
