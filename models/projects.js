@@ -13,7 +13,7 @@ class Projects {
 
     static async getAllProjects() {
         try {
-            const response = await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id`);
+            const response = await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id order by p.project_id desc`);
             console.log("response:", response)
             return response;
         } catch(err) {
@@ -45,11 +45,31 @@ class Projects {
         }
     }
 
+    // async addTags(tagsList) {
+    //     //#javascript #node #express #postgresql
+    //     let tags = tagsList.split('#');
+    //     let trimTags = tags.map(tag=> tag.trim());
+    //     trimTags.shift()
+    //     trimTags.forEach( (tag) => {
+            
+    //     })
+    // }
+
     static async getCohorts() {
         try {
             const response = await db.any(`select * from cohorts`);
             return response
         } catch {
+            return err.message
+        }
+    }
+
+    static async getProjectsByCohort(cohort_id) {
+        try {
+            const response = (cohort_id === "all") ? await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id order by p.project_id desc`)
+            : await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id where p.cohort_id = ${cohort_id} order by p.project_id desc`)
+            return response
+        } catch(err) {
             return err.message
         }
     }
