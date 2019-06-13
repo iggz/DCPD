@@ -6,8 +6,8 @@ router.get('/', function(req, res, next) {
     res.render('template', {
         locals: {
             title: 'Digitalcrafts Project Database',
-            is_logged_in: req.session.is_logged_in,
-            userName: req.session.first_name 
+            // is_logged_in: req.session.is_logged_in,
+            // userName: req.session.first_name 
         },
         partials: {
             partial: 'partial-index'
