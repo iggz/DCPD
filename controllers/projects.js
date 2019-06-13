@@ -15,6 +15,21 @@ exports.projects_list_get = async (req, res) => {
     });
 }
 
+exports.projects_list_get_by_cohort = async (req, res) => {
+    const projectsList = await Projects.getProjectsByCohort(req.body.cohort_id)
+    const cohortsList = await Projects.getCohorts();
+    res.render('template', {
+        locals: {
+            title: 'Projects List',
+            allProjects: projectsList,
+            allCohorts: cohortsList
+        },
+        partials: {
+            partial: 'partial-projects'
+        }
+    });
+}
+
 exports.project_data_get = async (req,res) => {
     const projectData = await Projects.getProjectData(req.params.project_id);
     res.render('template', {
