@@ -11,5 +11,12 @@
         Email Address
         <input type="text" name="email" placeholder="you@email.com" />
     </label>
+    <label class="label">Cohort:
+        <div class="select" >
+            <select name="cohort_id">
+                ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
+            </select>
+        </div>
+    </label>
     <button type="submit" class="button-is-primary">Sign Up</button>
 </form>
