@@ -24,9 +24,29 @@
                 <input type="text" name="url" placeholder="www.yourProject.com"/>
             </label>
         <label class="label">Cohort:
-            <div class="select" >
+            <div class="select">
                 <select name="cohort_id">
                     ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
+                </select>
+            </div>
+        </label>
+        <label class="label">Team members
+            <div class="select">
+                <select name="user_1">
+                    <option value="null">Team Member 1</option>
+                    ${allUsers.map(user => `<option value="${user.user_id}">${user.first_name} ${user.last_name}</option>`).join('')}
+                </select>
+            </div>
+            <div class="select">
+                <select name="user_2">
+                    <option value="null">Team Member 2</option>
+                    ${allUsers.map(user => `<option value="${user.user_id}">${user.first_name} ${user.last_name}</option>`).join('')}
+                </select>
+            </div>
+            <div class="select">
+                <select name="user_3">
+                    <option value="null">Team Member 3</option>
+                    ${allUsers.map(user => `<option value="${user.user_id}">${user.first_name} ${user.last_name}</option>`).join('')}
                 </select>
             </div>
         </label>
