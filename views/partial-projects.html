@@ -1,33 +1,40 @@
-<form method="POST">
-    <button class="button" type="submit">Apply Filters</button>
-<table class="table">
-    <thead>
-        <tr>
-            <td>ID</td>
-            <td>Name</td>
-            <td>Tagline</td>
-            <td>GitHub Repo</td>
-            <td>URL</td>
-            <td>Group Members</td>
-            <td>
-                <select id="cohort-selector" name="cohort_id">
-                    <option value = "all">Select Cohort</option>
-                    ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
-                </select>
-            </td>
-        </tr>
-    </thead>
-    ${allProjects.map( project =>
-    `<tr>
-        <td>${project.project_id}</td>
-        <td><a href="/projects/${project.project_id}">${project.project_name}</a></td>
-        <td>${project.project_description}</td>
-        <td><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
-        <td><a href="${project.project_url}" target="_blank">${project.project_url}</a></td>
-        <td>Group Members Go Here</td>
-        <td>${project.cohort_name}</td>
-    </tr>`
-    ).join('')}
-</table>
+<form method="POST" class="columns is-vcentered" style="align-items:flex-start">
+    <div class="tags are-medium column">
+        ${allTags.map(tag=> `<span class="tag is-primary">${tag.tag_text}</span>`).join('')}
+    </div>
+    <div class="column">
+        <button class="button is-link" type="submit">Apply Filters</button>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Tagline</td>
+                        <td>GitHub Repo</td>
+                        <td>URL</td>
+                        <td>Group Members</td>
+                        <td>
+                            <div class="select">
+                                <select id="cohort-selector" name="cohort_id">
+                                    <option value = "all">Select Cohort</option>
+                                    ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                </thead>
+                ${allProjects.map( project =>
+                `<tr>
+                    <td>${project.project_id}</td>
+                    <td><a href="/projects/${project.project_id}">${project.project_name}</a></td>
+                    <td>${project.project_description}</td>
+                    <td><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
+                    <td><a href="${project.project_url}" target="_blank">${project.project_url}</a></td>
+                    <td>Group Members Go Here</td>
+                    <td>${project.cohort_name}</td>
+                </tr>`
+                ).join('')}
+            </table>
+    </div>
 </form>
 

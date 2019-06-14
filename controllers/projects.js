@@ -1,14 +1,17 @@
 const Projects = require('../models/projects');
+    Tags = require('../models/tags')
 
 exports.projects_list_get = async (req, res) => {
     const projectsList = await Projects.getAllProjects();
     const cohortsList = await Projects.getCohorts();
+    const tagsList = await Tags.getAllTags();
     res.render('template', {
         locals: {
             title: 'Projects List',
             is_logged_in: req.session.is_logged_in,
             allProjects: projectsList,
-            allCohorts: cohortsList
+            allCohorts: cohortsList,
+            allTags: tagsList
         },
         partials: {
             partial: 'partial-projects'
@@ -19,12 +22,14 @@ exports.projects_list_get = async (req, res) => {
 exports.projects_list_get_by_cohort = async (req, res) => {
     const projectsList = await Projects.getProjectsByCohort(req.body.cohort_id)
     const cohortsList = await Projects.getCohorts();
+    const tagsList = await Tags.getAllTags();
     res.render('template', {
         locals: {
             title: 'Projects List',
             is_logged_in: req.session.is_logged_in,
             allProjects: projectsList,
-            allCohorts: cohortsList
+            allCohorts: cohortsList,
+            allTags: tagsList
         },
         partials: {
             partial: 'partial-projects'
@@ -52,7 +57,9 @@ exports.project_post = async (req, res) => {
         github_repo = req.body.github_repo,
         cohort_id = req.body.cohort_id,
         url = req.body.url;
-    await Projects.addProject(name, description, github_repo, cohort_id, url)
+        tags = req.body.tags;
+    let response = await Projects.addProject(name, description, github_repo, cohort_id, url)
+    await Tags.addTags(tags, response.project_id)
     res.redirect('/projects');
 }
 
