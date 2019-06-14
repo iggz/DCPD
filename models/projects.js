@@ -136,6 +136,19 @@ class Projects {
             return err.message
         }
     }
+
+    static async addProjectUser(p_id, u_id) {
+        try {
+            const response = await db.one(`
+                insert into project_users
+                    (project_id, user_id)
+                values
+                    (${p_id}, ${u_id})
+            `);
+        } catch(err) {
+            return err.message
+        }
+    }
 }
 
 module.exports = Projects;
