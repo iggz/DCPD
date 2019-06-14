@@ -6,11 +6,14 @@ exports.projects_list_get = async (req, res) => {
     const projectsList = await Projects.getAllProjects();
     const cohortsList = await Projects.getCohorts();
     const tagsList = await Tags.getAllTags();
+    const projectTagsList = await Tags.getProjectsWithTags();
+    let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
+    console.log("projectsListWithTags:", projectsListWithTags);
     res.render('template', {
         locals: {
             title: 'Projects List',
             is_logged_in: req.session.is_logged_in,
-            allProjects: projectsList,
+            allProjects: projectsListWithTags,
             allCohorts: cohortsList,
             allTags: tagsList
         },
@@ -18,6 +21,17 @@ exports.projects_list_get = async (req, res) => {
             partial: 'partial-projects'
         }
     });
+}
+
+function addTagsToProjects(projectsList, tagsList) {
+    for (project in projectsList) {
+        for (tags in tagsList) {
+            if (projectsList[project].project_id == tagsList[tags].project_id) {
+                projectsList[project].tags_list = tagsList[tags].tags_list
+            }
+        }
+    }
+    return projectsList
 }
 
 exports.my_projects_get = async (req, res) => {
@@ -78,17 +92,23 @@ exports.edit_project_post = async (req, res) => {
     res.redirect('/projects/myprojects');
 }
 
-exports.projects_list_get_by_cohort = async (req, res) => {
-    const projectsList = await Projects.getProjectsByCohort(req.body.cohort_id)
+exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
+    const projectsList = await Projects.getProjectsFilteredByCohort(req.body.cohort_id)
     const cohortsList = await Projects.getCohorts();
     const tagsList = await Tags.getAllTags();
+    const projectTagsList = await Tags.getProjectsWithTags();
+    let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
+    console.log(projectsListWithTags);
+    const projectsListFilteredByTag = projectsListWithTags.filter(project => !!project.tags_list)
+                                                        .filter(project => project.tags_list.includes(req.body.tag))
+    console.log(projectsListFilteredByTag)
     res.render('template', {
         locals: {
             title: 'Projects List',
             is_logged_in: req.session.is_logged_in,
-            allProjects: projectsList,
+            allProjects: projectsListFilteredByTag,
             allCohorts: cohortsList,
-            allTags: tagsList
+            allTags: tagsList,
         },
         partials: {
             partial: 'partial-projects'
@@ -98,11 +118,13 @@ exports.projects_list_get_by_cohort = async (req, res) => {
 
 exports.project_data_get = async (req,res) => {
     const projectData = await Projects.getProjectData(req.params.project_id);
+    const projectTags = await Tags.getSingleProjectTags(req.params.project_id)
     res.render('template', {
         locals: {
             title: 'Projects Data',
             is_logged_in: req.session.is_logged_in,
-            oneProject: projectData
+            oneProject: projectData,
+            tagsList: projectTags
         },
         partials: {
             partial: 'partial-one-project'
@@ -143,3 +165,22 @@ exports.add_project_page = async (req, res) => {
         }
     })
 }
+
+exports.filter_by_tag = (data) => {
+    allTags = document.querySelectorAll(".tag");
+    allTags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            console.log(`filtering on ${tag.innerHTML}`)
+            return data.filter(project.tags_list.contains(tag.innerHTML))
+        })
+    })
+}
+
+// allTags = document.getElementsByClass("tag is-primary");
+// allTags.forEach(tag => {
+//     tag.addEventListener('click', () => {
+//         console.log(`filtering on ${tag.innerHTML}`)
+//         data.filter(project.tags.contains(tag.innerHTML))
+//         return data
+//     })
+// })

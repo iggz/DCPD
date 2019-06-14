@@ -35,3 +35,4 @@ create table tags (
     tag_text varchar(25),
     project_id int references projects(project_id)
 )
+

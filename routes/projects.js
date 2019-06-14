@@ -10,6 +10,6 @@ router.get('/myprojects', ProjectsController.my_projects_get);
 router.get('/edit/:project_id', ProjectsController.edit_project_get);
 router.post('/edit/:project_id', ProjectsController.edit_project_post);
 router.post('/submit', ProjectsController.project_post);
-router.post('/', ProjectsController.projects_list_get_by_cohort);
+router.post('/', ProjectsController.projects_list_get_by_cohort_and_tag);
 
 module.exports = router;
