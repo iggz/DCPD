@@ -11,13 +11,16 @@
         <nav class="navbar main-nav is-dark" role="navigation" aria-label="main navigation">
             <div class="navbar-start">
                 <a class="navbar-item" href='/projects'>Home</a>
-                <a class="navbar-item" href='/projects/submit'>Submit a Project</a>
+                
                 <a class="navbar-item" href='/users/profile'>Profile</a>
             </div>
             ${!!is_logged_in ? `
                 <div class="navbar-end">
+                    <a class="navbar-item" href='/projects/myprojects'>My Projects</a>
+                    <a class="navbar-item" href='/projects/submit'>Submit a Project</a>
                     <a class="navbar-item" href='/users/logout'>Logout</a>
                 </div>
+                
             ` : `
                 <div class="navbar-end">
                     <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.team&client_id=664818342999.665110278982">
