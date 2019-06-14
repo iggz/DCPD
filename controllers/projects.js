@@ -35,17 +35,36 @@ exports.my_projects_get = async (req, res) => {
 }
 
 exports.edit_project_get = async (req, res) => {
-    const projectData = await Projects.getProjectData(req.params.project_id);
-    res.render('template', {
-        locals: {
-            title: 'Edit Project',
-            is_logged_in: req.session.is_logged_in,
-            oneProject: projectData
-        },
-        partials: {
-            partial: 'partial-edit-project'
+    if(req.session.is_logged_in == true) {
+        const projectUsers = await Projects.getProjectUsers(req.params.project_id);
+        const email = req.session.email;
+        const userId = Projects.checkUser(email);
+        let authorized = false;
+        projectUsers.forEach(() => {
+            if(user_id = userId) {
+                authorized = true;
+                return authorized;
+            }
+        });
+        if(authorized == true) {
+            const projectData = await Projects.getProjectData(req.params.project_id);
+            res.render('template', {
+                locals: {
+                    title: 'Edit Project',
+                    is_logged_in: req.session.is_logged_in,
+                    oneProject: projectData
+                },
+                partials: {
+                    partial: 'partial-edit-project'
+                }
+            });
+        } else {
+            res.redirect('/');
         }
-    });
+    }
+    else {
+        res.redirect('/');
+    }
 }
 
 exports.edit_project_post = async (req, res) => {

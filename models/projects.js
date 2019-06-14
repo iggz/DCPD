@@ -113,6 +113,29 @@ class Projects {
             return err.message
         }
     }
+
+    static async getProjectUsers(p_id) {
+        try {
+            const response = await db.any(`
+                select * from project_users
+                where project_users.project_id = ${p_id}
+            `);
+            return response;
+        } catch(err) {
+            return err.message
+        }
+    };
+
+    static async checkUser(email) {
+        try {
+            const response = await db.one(`
+                select user_id from users
+                where users.user_email = ${email}
+            `);
+        } catch(err) {
+            return err.message
+        }
+    }
 }
 
 module.exports = Projects;
