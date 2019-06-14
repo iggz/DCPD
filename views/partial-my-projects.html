@@ -1,0 +1,22 @@
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Tagline</td>
+            <td>GitHub Repo</td>
+            <td>URL</td>
+            <td>Group Members</td>
+        </tr>
+    </thead>
+    ${myProjectsList.map( project =>
+    `<tr>
+        <td><a href="/projects/${project.project_id}">${project.project_name}</a></td>
+        <td>${project.project_description}</td>
+        <td><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
+        <td><a href="${project.project_url}" target="_blank">${project.project_url}</a></td>
+        <td>Group Members Go Here</td>
+        <td><a href="/projects/edit/${project.project_id}">Edit</a></td>
+    </tr>`
+    ).join('')}
+</table>

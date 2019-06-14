@@ -1,22 +1,23 @@
 const db = require('./conn');
 
 class User {
-    constructor(id, first_name, last_name, email) {
-        this.id = id;
+    constructor(user_id, first_name, last_name, user_email, cohort_id) {
+        this.id = user_id;
         this.first_name = first_name;
         this.last_name = last_name;
-        this.email = email;
+        this.email = user_email;
+        this.cohort_id = cohort_id;
     }
 
     async save() {
         try {
             const response = await db.one(`
                 insert into users
-                    (first_name, last_name, email, password)
+                    (first_name, last_name, user_email, cohort_id)
                 values
                     ($1, $2, $3, $4)
-                returning id
-                ` , [this.first_name, this.last_name, this.email, this.password]);
+                returning user_id
+                ` , [this.first_name, this.last_name, this.email, this.cohort_id]);
             return response;
         } catch(err) {
             return err.message;
@@ -35,11 +36,11 @@ class User {
                 //add new user to database
                 const response = await db.one(`
                     insert into users
-                        (first_name, last_name, email)
+                        (first_name, last_name, user_email, cohort_id)
                     values
-                        ($1, $2, $3)
-                    returning id
-                    ` , [this.first_name, this.last_name, this.email, this.password]);
+                        ($1, $2, $3, $4)
+                    returning user_id
+                    ` , [this.first_name, this.last_name, this.email, this.cohort_id]);
                 return response;
             }   
         } catch(err) {
@@ -49,11 +50,14 @@ class User {
     async getProfile() {
         try {
             const response = await db.one(`
-                select first_name, last_name, email
+                select first_name, last_name, user_email, cohort_name
                     from users
-                where users.id = $1`, [this.id]);
-            const { first_name, last_name, email } = response;
-            return { first_name, last_name, email };
+                inner join cohorts
+                    on users.cohort_id = cohorts.cohort_id
+                where users.user_email = $1`, [this.email]);
+            console.log(response);
+            const { first_name, last_name, user_email, cohort_name } = response;
+            return { first_name, last_name, user_email, cohort_name };
         } catch(err) {
             return err.message;
         }
@@ -62,11 +66,30 @@ class User {
         try {
             const response = await db.one(`
                 select * from users
-                where users.email = $1`, [this.email]);
-            const { first_name, last_name, email, password } = response;
-            return {first_name, last_name, email, password};
+                where users.user_email = $1`, [this.email]);
+            const { user_id, first_name, last_name, user_email, cohort_id } = response;
+            return { user_id, first_name, last_name, user_email, cohort_id };
         } catch(err) {
             return err.message;
+        }
+    }
+    static async getAllUsers() {
+        try {
+            const response = await db.any(`
+                select * from users order by users.first_name   
+            `);
+            return response;
+        } catch(err) {
+            return err.message;
+        }
+    }
+
+    static async getProjectsWithUsers() {
+        try {
+            const response = await db.any(`select project_id, string_agg(user_id::character varying, ',') as users_list from project_users group by project_id;`);
+            return response
+        } catch(err) {
+            return err.message
         }
     }
 }

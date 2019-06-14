@@ -1,4 +1,5 @@
-<form method="POST">
+<form method="POST" class="form">
+    ${!!is_logged_in ? `  
         <div class="control is-horizontal">
             <label class="label">
                 Name:
@@ -12,10 +13,10 @@
             </label>
         </div>
         <div class="control">
-        <label class="label">
-            GitHub Repo:
-            <input type="text" name="github_repo" placeholder="https://github.com/yourUser/yourRepo"/>
-        </label>
+            <label class="label">
+                GitHub Repo:
+                <input type="text" name="github_repo" placeholder="https://github.com/yourUser/yourRepo"/>
+            </label>
         </div>
         <div class="control">
             <label class="label">
@@ -23,11 +24,40 @@
                 <input type="text" name="url" placeholder="www.yourProject.com"/>
             </label>
         <label class="label">Cohort:
-            <div class="select" >
+            <div class="select">
                 <select name="cohort_id">
                     ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
                 </select>
             </div>
         </label>
+        <label class="label">Team members
+            <div class="select">
+                <select name="user_1">
+                    <option value="null">Team Member 1</option>
+                    ${allUsers.map(user => `<option value="${user.user_id}">${user.first_name} ${user.last_name}</option>`).join('')}
+                </select>
+            </div>
+            <div class="select">
+                <select name="user_2">
+                    <option value="null">Team Member 2</option>
+                    ${allUsers.map(user => `<option value="${user.user_id}">${user.first_name} ${user.last_name}</option>`).join('')}
+                </select>
+            </div>
+            <div class="select">
+                <select name="user_3">
+                    <option value="null">Team Member 3</option>
+                    ${allUsers.map(user => `<option value="${user.user_id}">${user.first_name} ${user.last_name}</option>`).join('')}
+                </select>
+            </div>
+        </label>
+        <div class="control">
+            <label class="label">
+                Tags:
+                <input type="text" name="tags" placeholder="#javascript #node #express #react"/>
+            </label>
+        </div>
         <button class="button" type="submit">Save Project</button>
-    </form>
+    ` : `
+        <div>Warning: Unauthorized</div>
+    `}
+</form>

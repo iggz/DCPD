@@ -12,7 +12,6 @@ create table users (
     first_name varchar(100),
     last_name varchar(100),
     user_email varchar(100),
-    password varchar(200),
     cohort_id int references cohorts(cohort_id)
 );
 
@@ -30,3 +29,10 @@ create table project_users (
     project_id int references projects(project_id),
     user_id int references users(user_id)
 );
+
+create table tags (
+    tag_id serial primary key,
+    tag_text varchar(25),
+    project_id int references projects(project_id)
+)
+
