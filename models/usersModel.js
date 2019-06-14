@@ -73,6 +73,16 @@ class User {
             return err.message;
         }
     }
+    static async getAllUsers() {
+        try {
+            const response = await db.any(`
+                select * from users order by users.first_name   
+            `);
+            return response;
+        } catch(err) {
+            return err.message;
+        }
+    }
 }
 
 module.exports = User;
