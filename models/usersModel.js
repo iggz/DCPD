@@ -16,7 +16,7 @@ class User {
                     (first_name, last_name, user_email, cohort_id)
                 values
                     ($1, $2, $3, $4)
-                returning id
+                returning user_id
                 ` , [this.first_name, this.last_name, this.email, this.cohort_id]);
             return response;
         } catch(err) {

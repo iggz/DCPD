@@ -92,7 +92,7 @@ exports.edit_project_post = async (req, res) => {
 }
 
 exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
-    const projectsList = await Projects.getProjectsByCohort(req.body.cohort_id)
+    const projectsList = await Projects.getProjectsFilteredByCohort(req.body.cohort_id)
     const cohortsList = await Projects.getCohorts();
     const tagsList = await Tags.getAllTags();
     const projectTagsList = await Tags.getProjectsWithTags();
