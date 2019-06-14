@@ -1,0 +1,29 @@
+<table class="table">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Tagline</td>
+            <td>GitHub Repo</td>
+            <td>URL</td>
+            <td>Group Members</td>
+        </tr>
+    </thead>
+    <form method="POST" class="form">  
+        <tr>
+            <td>
+                <input type="text" name="name" value="${oneProject.project_name}"/>
+            </td>
+            <td>
+                <input type="text" name="description" value="${oneProject.project_description}"/>
+            </td>
+            <td>
+                <input type="text" name="github_repo" value="${oneProject.github_repo}"/>
+            </td>
+            <td>
+                <input type="text" name="url" value="${oneProject.project_url}"/>
+            </td>
+            <td>Group Members Go Here</td>
+        </tr>
+        <button class="button" type="submit">Save Project</button>
+    </form>
+</table>

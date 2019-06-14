@@ -25,7 +25,7 @@ class Projects {
         try {
             const user_id = await db.one(`select user_id from users where users.user_email = $1`, [email]);
             const response = await db.any(`
-                select project_name, project_description, github_repo, project_url, added_date  
+                select projects.project_id, project_name, project_description, github_repo, project_url, added_date  
                     from projects, project_users
                 where project_users.user_id = $1 and projects.project_id = project_users.project_id;
             `, [user_id.user_id]);
@@ -92,6 +92,24 @@ class Projects {
             : await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id where p.cohort_id = ${cohort_id} order by p.project_id desc`)
             return response
         } catch(err) {
+            return err.message
+        }
+    }
+
+    static async editProject(p_id, project_name, project_description, github_repo, project_url) {
+        try {
+            const response = await db.one(`
+                update projects
+                set 
+                    project_name = $1,
+                    project_description = $2,
+                    github_repo = $3,
+                    project_url = $4
+                where
+                    project_id = ${p_id}
+            `, [project_name, project_description, github_repo, project_url]);
+            return response;
+        } catch (err) {
             return err.message
         }
     }
