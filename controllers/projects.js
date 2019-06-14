@@ -99,9 +99,15 @@ exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
     const projectTagsList = await Tags.getProjectsWithTags();
     let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
     console.log(projectsListWithTags);
-    const projectsListFilteredByTag = projectsListWithTags.filter(project => !!project.tags_list)
-                                                        .filter(project => project.tags_list.includes(req.body.tag))
-    console.log(projectsListFilteredByTag)
+    let projectsListFilteredByTag = []
+    if (req.body.tag != 'all') {
+        projectsListFilteredByTag = projectsListWithTags.filter(project => !!project.tags_list)
+            .filter(project => project.tags_list.includes(req.body.tag))
+        }
+        else {
+            projectsListFilteredByTag = projectsListWithTags
+        }
+    // console.log(projectsListFilteredByTag)
     res.render('template', {
         locals: {
             title: 'Projects List',
