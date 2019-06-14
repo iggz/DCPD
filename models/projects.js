@@ -21,6 +21,20 @@ class Projects {
         }
     }
 
+    static async getMyProjects(email) {
+        try {
+            const user_id = await db.one(`select user_id from users where users.user_email = $1`, [email]);
+            const response = await db.any(`
+                select project_name, project_description, github_repo, project_url, added_date  
+                    from projects, project_users
+                where project_users.user_id = $1 and projects.project_id = project_users.project_id;
+            `, [user_id.user_id]);
+            return response;
+        } catch(err) {
+            return err.message
+        }
+    }
+
     static async getProjectData(project_id) {
         try {
             const response = await db.one(`

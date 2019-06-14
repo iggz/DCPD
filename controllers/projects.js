@@ -19,6 +19,21 @@ exports.projects_list_get = async (req, res) => {
     });
 }
 
+exports.my_projects_get = async (req, res) => {
+    const email = req.session.email;
+    const myProjects = await Projects.getMyProjects(email);
+    res.render('template', {
+        locals: {
+            title: 'Your Projects',
+            is_logged_in: req.session.is_logged_in,
+            myProjectsList: myProjects
+        },
+        partials: {
+            partial: 'partial-my-projects'
+        }
+    });
+}
+
 exports.projects_list_get_by_cohort = async (req, res) => {
     const projectsList = await Projects.getProjectsByCohort(req.body.cohort_id)
     const cohortsList = await Projects.getCohorts();
