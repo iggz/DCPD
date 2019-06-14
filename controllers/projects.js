@@ -22,12 +22,14 @@ exports.projects_list_get = async (req, res) => {
 exports.projects_list_get_by_cohort = async (req, res) => {
     const projectsList = await Projects.getProjectsByCohort(req.body.cohort_id)
     const cohortsList = await Projects.getCohorts();
+    const tagsList = await Tags.getAllTags();
     res.render('template', {
         locals: {
             title: 'Projects List',
             is_logged_in: req.session.is_logged_in,
             allProjects: projectsList,
-            allCohorts: cohortsList
+            allCohorts: cohortsList,
+            allTags: tagsList
         },
         partials: {
             partial: 'partial-projects'
