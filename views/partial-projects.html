@@ -1,9 +1,16 @@
 <form method="POST" class="columns is-vcentered" style="align-items:flex-start">
+    
     <div class="tags are-medium column">
-        ${allTags.map(tag=> `<span class="tag is-primary">${tag.tag_text}</span>`).join('')}
+        <div class="select" style="margin-bottom: calc(.375em - 1px)">
+            <select id="tag-selector" name="tag">
+                <option value="all">Select Tag to Filter</option>
+                ${allTags.map(tag => `<option value = "${tag.tag_text}">${tag.tag_text}</option>`).join('')}
+            </select>
+        </div>
+        ${allTags.map(tag=> `<button data-tag_text="${tag.tag_text}" id="${tag.tag_text}" class="tag is-primary">${tag.tag_text}</button>`).join('')}
     </div>
     <div class="column">
-        <button class="button is-link" type="submit">Apply Filters</button>
+        <button class="button is-link" type="submit" style="margin-left: 87.5%">Apply Filters</button>
             <table class="table">
                 <thead>
                     <tr>
@@ -16,7 +23,7 @@
                         <td>
                             <div class="select">
                                 <select id="cohort-selector" name="cohort_id">
-                                    <option value = "all">Select Cohort</option>
+                                    <option value = "all">Select Cohort to Filter</option>
                                     ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
                                 </select>
                             </div>
@@ -37,4 +44,5 @@
             </table>
     </div>
 </form>
+
 
