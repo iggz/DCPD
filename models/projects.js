@@ -45,23 +45,6 @@ class Projects {
         }
     }
 
-    static async addTags(tagsList, project_id) {
-        //#javascript #node #express #postgresql
-        console.log("tags list:", tagsList)
-        let tags = tagsList.split('#');
-        let trimTags = tags.map(tag=> tag.trim());
-        trimTags.shift()
-        let lowerTags = trimTags.map(tag=> tag.toLowerCase())
-        console.log(lowerTags)
-        lowerTags.map(tag => {
-            try {
-                const response = db.any(`insert into tags (tag_text, project_id) values ('${tag}', ${project_id})`)
-                return response
-            } catch(err) {
-                return err.message
-            }
-        })
-    }
 
     static async getCohorts() {
         try {
@@ -72,7 +55,7 @@ class Projects {
         }
     }
 
-    static async getProjectsByCohort(cohort_id) {
+    static async getProjectsFilteredByCohort(cohort_id) {
         try {
             const response = (cohort_id === "all") ? await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id order by p.project_id desc`)
             : await db.any(`select p.*, c.cohort_name from projects as p join cohorts as c on p.cohort_id = c.cohort_id where p.cohort_id = ${cohort_id} order by p.project_id desc`)
