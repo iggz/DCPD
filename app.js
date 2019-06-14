@@ -20,6 +20,7 @@ app.set('views', 'views');
 app.engine('html', es6Renderer);
 app.set('view engine', 'html');
 
+app.use('scripts/', express.static('../public/javascripts'))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

@@ -66,3 +66,4 @@ insert into projects (
 values (
     'super awesome fun time project', 'sample project to test database', 'github.com', 1, 'project.com', '6/12/2019'
 );
+

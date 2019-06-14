@@ -5,6 +5,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+        <!-- <script source="../public/javascripts/tagFilter.js"></script> -->
     </head>
     <body>
         <nav class="navbar main-nav is-dark" role="navigation" aria-label="main navigation">
@@ -15,6 +16,7 @@
             </div>
             ${!!is_logged_in ? `
                 <div class="navbar-end">
+                    <a class="navbar-item" href='/projects/myprojects'>My Projects</a>
                     <a class="navbar-item" href='/projects/submit'>Submit a Project</a>
                     <a class="navbar-item" href='/users/logout'>Logout</a>
                 </div>
