@@ -19,6 +19,64 @@ exports.projects_list_get = async (req, res) => {
     });
 }
 
+exports.my_projects_get = async (req, res) => {
+    const email = req.session.email;
+    const myProjects = await Projects.getMyProjects(email);
+    res.render('template', {
+        locals: {
+            title: 'Your Projects',
+            is_logged_in: req.session.is_logged_in,
+            myProjectsList: myProjects
+        },
+        partials: {
+            partial: 'partial-my-projects'
+        }
+    });
+}
+
+exports.edit_project_get = async (req, res) => {
+    if(req.session.is_logged_in == true) {
+        const projectUsers = await Projects.getProjectUsers(req.params.project_id);
+        const email = req.session.email;
+        const userId = Projects.checkUser(email);
+        let authorized = false;
+        projectUsers.forEach(() => {
+            if(user_id = userId) {
+                authorized = true;
+                return authorized;
+            }
+        });
+        if(authorized == true) {
+            const projectData = await Projects.getProjectData(req.params.project_id);
+            res.render('template', {
+                locals: {
+                    title: 'Edit Project',
+                    is_logged_in: req.session.is_logged_in,
+                    oneProject: projectData
+                },
+                partials: {
+                    partial: 'partial-edit-project'
+                }
+            });
+        } else {
+            res.redirect('/');
+        }
+    }
+    else {
+        res.redirect('/');
+    }
+}
+
+exports.edit_project_post = async (req, res) => {
+    const id = req.params.project_id,
+        name = req.body.name,
+        description = req.body.description,
+        github = req.body.github_repo,
+        url = req.body.url;
+    await Projects.editProject(id, name, description, github, url);
+    res.redirect('/projects/myprojects');
+}
+
 exports.projects_list_get_by_cohort = async (req, res) => {
     const projectsList = await Projects.getProjectsByCohort(req.body.cohort_id)
     const cohortsList = await Projects.getCohorts();
@@ -56,7 +114,7 @@ exports.project_post = async (req, res) => {
         description = req.body.description,
         github_repo = req.body.github_repo,
         cohort_id = req.body.cohort_id,
-        url = req.body.url;
+        url = req.body.url,
         tags = req.body.tags;
     let response = await Projects.addProject(name, description, github_repo, cohort_id, url)
     await Tags.addTags(tags, response.project_id)
