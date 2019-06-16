@@ -1,29 +1,34 @@
 <form method="POST" class="form">
     ${!!is_logged_in ? `  
-        <div class="control is-horizontal">
+        <div class="field">
             <label class="label">
                 Name:
-                <input type="text" name="name"/>
+                <input class="input" type="text" name="name"/>
             </label>
         </div>
-        <div class="control">
+        <div class="field">
             <label class="label">
-                Tagline (Limit 280 Characters):
-                <input type="text" name="description"/>
+                Short Description (Limit 280 Characters):
             </label>
+            <div class="control">
+                <textarea class="input" type="text" name="description" placehoder="Short description goes here"></textarea>
+            </div>
+                <!-- <input type="text" name="description"/> -->
         </div>
-        <div class="control">
+        <div class="field">
             <label class="label">
                 GitHub Repo:
-                <input type="text" name="github_repo" placeholder="https://github.com/yourUser/yourRepo"/>
+                <input class="input" type="text" name="github_repo" placeholder="https://github.com/yourUser/yourRepo"/>
             </label>
         </div>
-        <div class="control">
+        <div class="field">
             <label class="label">
                 Url:
-                <input type="text" name="url" placeholder="www.yourProject.com"/>
+                <input class="input" type="text" name="url" placeholder="www.yourProject.com"/>
             </label>
+        </div>
         <label class="label">Cohort:
+            <br>
             <div class="select">
                 <select name="cohort_id">
                     ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
@@ -31,6 +36,7 @@
             </div>
         </label>
         <label class="label">Team members
+            <br>
             <div class="select">
                 <select name="user_1">
                     <option value="null">Team Member 1</option>
@@ -50,10 +56,10 @@
                 </select>
             </div>
         </label>
-        <div class="control">
+        <div class="field">
             <label class="label">
                 Tags:
-                <input type="text" name="tags" placeholder="#javascript #node #express #react"/>
+                <input class="input" type="text" name="tags" placeholder="#javascript #node #express #react"/>
             </label>
         </div>
         <button class="button" type="submit">Save Project</button>
