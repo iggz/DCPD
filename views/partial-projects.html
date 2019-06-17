@@ -7,17 +7,16 @@
                 ${allTags.map(tag => `<option value = "${tag.tag_text}">${tag.tag_text}</option>`).join('')}
             </select>
         </div>
-        ${allTags.map(tag=> `<button data-tag_text="${tag.tag_text}" id="${tag.tag_text}" class="tag is-primary">${tag.tag_text}</button>`).join('')}
+        ${allTags.map(tag=> `<button data-tag_text="${tag.tag_text}" id="${tag.tag_text}" class="tag is-primary is-hidden-mobile">${tag.tag_text}</button>`).join('')}
     </div>
     <div class="column">
         <button class="button is-link" type="submit" style="margin-left: 87.5%">Apply Filters</button>
             <table class="table">
                 <thead>
                     <tr>
-                        <td>ID</td>
                         <td>Name</td>
-                        <td>Tagline</td>
-                        <td>GitHub Repo</td>
+                        <td>Short Description</td>
+                        <td class="is-hidden-mobile">GitHub Repo</td>
                         <td>URL</td>
                         <td>Group Members</td>
                         <td>
@@ -32,12 +31,11 @@
                 </thead>
                 ${allProjects.map( project =>
                 `<tr>
-                    <td>${project.project_id}</td>
                     <td><a href="/projects/${project.project_id}">${project.project_name}</a></td>
                     <td>${project.project_description}</td>
-                    <td><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
+                    <td class="is-hidden-mobile"><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
                     <td><a href="${project.project_url}" target="_blank">${project.project_url}</a></td>
-                    <td>Group Members Go Here</td>
+                    <td>${project.users_list}</td>
                     <td>${project.cohort_name}</td>
                 </tr>`
                 ).join('')}

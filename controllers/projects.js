@@ -7,13 +7,15 @@ exports.projects_list_get = async (req, res) => {
     const cohortsList = await Projects.getCohorts();
     const tagsList = await Tags.getAllTags();
     const projectTagsList = await Tags.getProjectsWithTags();
+    const projectUsersList = await Users.getProjectsWithUsers();
     let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
-    console.log("projectsListWithTags:", projectsListWithTags);
+    let projectsListWithTagsAndUsers = addUsersToProjects(projectsListWithTags, projectUsersList)
+    console.log("projectsListWithTagsAndUsers:", projectsListWithTagsAndUsers);
     res.render('template', {
         locals: {
             title: 'Projects List',
             is_logged_in: req.session.is_logged_in,
-            allProjects: projectsListWithTags,
+            allProjects: projectsListWithTagsAndUsers,
             allCohorts: cohortsList,
             allTags: tagsList
         },
@@ -28,6 +30,17 @@ function addTagsToProjects(projectsList, tagsList) {
         for (tags in tagsList) {
             if (projectsList[project].project_id == tagsList[tags].project_id) {
                 projectsList[project].tags_list = tagsList[tags].tags_list
+            }
+        }
+    }
+    return projectsList
+}
+
+function addUsersToProjects(projectsList, usersList) {
+    for (project in projectsList) {
+        for (users in usersList) {
+            if (projectsList[project].project_id == usersList[users].project_id) {
+                projectsList[project].users_list = usersList[users].users_list
             }
         }
     }
@@ -99,9 +112,15 @@ exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
     const projectTagsList = await Tags.getProjectsWithTags();
     let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
     console.log(projectsListWithTags);
-    const projectsListFilteredByTag = projectsListWithTags.filter(project => !!project.tags_list)
-                                                        .filter(project => project.tags_list.includes(req.body.tag))
-    console.log(projectsListFilteredByTag)
+    let projectsListFilteredByTag = []
+    if (req.body.tag != 'all') {
+        projectsListFilteredByTag = projectsListWithTags.filter(project => !!project.tags_list)
+            .filter(project => project.tags_list.includes(req.body.tag))
+        }
+        else {
+            projectsListFilteredByTag = projectsListWithTags
+        }
+    // console.log(projectsListFilteredByTag)
     res.render('template', {
         locals: {
             title: 'Projects List',
