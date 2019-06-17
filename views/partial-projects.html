@@ -9,12 +9,6 @@
         </div>
         ${allTags.map(tag=> `<button data-tag_text="${tag.tag_text}" id="${tag.tag_text}" class="tag is-primary is-hidden-touch">${tag.tag_text}</button>`).join('')}
     </div>
-    <div class="select touch">
-            <select id="cohort-selector" name="cohort_id">
-                <option value = "all">Select Cohort to Filter</option>
-                ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
-            </select>
-        </div>
     <div class="column">
         <button class="button is-link" type="submit">Apply Filters</button>
             <table class="table">
