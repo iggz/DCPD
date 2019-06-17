@@ -137,38 +137,22 @@ exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
 
 exports.project_data_get = async (req,res) => {
     const projectData = await Projects.getProjectData(req.params.project_id);
-    console.log("ProjectData: " , projectData);
-    
-    const projectTagsList = await Tags.getProjectsWithTags();
-    console.log("ProjectTagsList: ", projectTagsList);
-    
     let projectDataArray = [];
     projectDataArray.push(projectData);
-
+    const projectTagsList = await Tags.getProjectsWithTags();
+    let projectsDataWithTags = addTagsToProjects(projectDataArray, projectTagsList);
     const projectUsersList = await Users.getProjectsWithUsers();
-
-    let projectsDataWithTags = addTagsToProjects(projectDataArray, projectTagsList)
-    console.log("projectsListWithTags: ", projectsDataWithTags);
-
     let projectsDataWithTagsAndUsers = addUsersToProjects(projectsDataWithTags, projectUsersList)
-    console.log("projectsDataWithTagsAndUsers",projectsDataWithTagsAndUsers);
-
-    let tagsArray = projectsDataWithTagsAndUsers[0].tags_list.split(",");
-    console.log("tagsArray: ", tagsArray)
-
-
+    console.log("projectsDataWithTags: ", projectsDataWithTags)
+    const tagsArray = projectsDataWithTagsAndUsers[0].tags_list.split(",");
     const cohortsList = await Projects.getCohorts();
+    let cohortsArray = [];
     cohortsList.forEach(cohort => {
         if (cohort.cohort_id == projectsDataWithTagsAndUsers[0].cohort_id) {
             let nameOfCohort = cohort.cohort_name;
-            const cohortsArray = [];
             cohortsArray.push(nameOfCohort);
-            console.log("nameOfCohort: ", nameOfCohort)
         }
-
     })
-    // console.log("nameOfCohort: ", nameOfCohort)
-
 
     res.render('template', {
         locals: {
@@ -177,7 +161,6 @@ exports.project_data_get = async (req,res) => {
             oneProject: projectsDataWithTagsAndUsers[0],
             projectTags: tagsArray,
             cohortName: cohortsArray
-
         },
         partials: {
             partial: 'partial-one-project'
