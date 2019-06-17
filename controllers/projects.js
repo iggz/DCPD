@@ -37,6 +37,7 @@ function addTagsToProjects(projectsList, tagsList) {
 }
 
 function addUsersToProjects(projectsList, usersList) {
+    console.log(usersList)
     for (project in projectsList) {
         for (users in usersList) {
             if (projectsList[project].project_id == usersList[users].project_id) {
@@ -50,11 +51,13 @@ function addUsersToProjects(projectsList, usersList) {
 exports.my_projects_get = async (req, res) => {
     const email = req.session.email;
     const myProjects = await Projects.getMyProjects(email);
+    const projectUsersList = await Users.getProjectsWithUsers();
+    let projectsListWithUsers = addUsersToProjects(myProjects, projectUsersList)
     res.render('template', {
         locals: {
             title: 'Your Projects',
             is_logged_in: req.session.is_logged_in,
-            myProjectsList: myProjects
+            myProjectsList: projectsListWithUsers
         },
         partials: {
             partial: 'partial-my-projects'
