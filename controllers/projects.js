@@ -37,6 +37,7 @@ function addTagsToProjects(projectsList, tagsList) {
 }
 
 function addUsersToProjects(projectsList, usersList) {
+    console.log(usersList)
     for (project in projectsList) {
         for (users in usersList) {
             if (projectsList[project].project_id == usersList[users].project_id) {

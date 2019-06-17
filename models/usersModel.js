@@ -86,7 +86,9 @@ class User {
 
     static async getProjectsWithUsers() {
         try {
-            const response = await db.any(`select project_id, string_agg(user_id::character varying, ',') as users_list from project_users group by project_id;`);
+            const response = await db.any(`select p.project_id, string_agg(u.first_name || ' ' || u.last_name, ', ') as users_list 
+            from project_users as p join users as u on p.user_id = u.user_id
+            group by p.project_id;`);
             return response
         } catch(err) {
             return err.message
