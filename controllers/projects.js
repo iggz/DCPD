@@ -112,13 +112,15 @@ exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
     const tagsList = await Tags.getAllTags();
     const projectTagsList = await Tags.getProjectsWithTags();
     let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
+    const projectUsersList = await Users.getProjectsWithUsers();
+    let projectsListWithTagsAndUsers = addUsersToProjects(projectsListWithTags, projectUsersList)
     let projectsListFilteredByTag = []
     if (req.body.tag != 'all') {
-        projectsListFilteredByTag = projectsListWithTags.filter(project => !!project.tags_list)
+        projectsListFilteredByTag = projectsListWithTagsAndUsers.filter(project => !!project.tags_list)
             .filter(project => project.tags_list.includes(req.body.tag))
         }
         else {
-            projectsListFilteredByTag = projectsListWithTags
+            projectsListFilteredByTag = projectsListWithTagsAndUsers
         }
     // console.log(projectsListFilteredByTag)
     res.render('template', {
