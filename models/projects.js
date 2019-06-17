@@ -64,7 +64,7 @@ class Projects {
         try {
             const response = await db.any(`select * from cohorts`);
             return response
-        } catch {
+        } catch(err) {
             return err.message
         }
     }
