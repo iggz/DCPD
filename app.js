@@ -36,7 +36,7 @@ app.use(session({
 
 app.use(require('body-parser').urlencoded({ extended: true }));
 
-app.use('/', indexRouter);
+app.use('/', projectsRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
 
