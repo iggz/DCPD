@@ -1,11 +1,51 @@
-<ul>
-    
-        <li>${oneProject.project_id}</li>
-        <li>${oneProject.project_name}</li>
-        <li>${oneProject.project_description}</li>
-        <li>${oneProject.github_repo}</li>
-        <li>${oneProject.cohort_id}</li>
-        <li>${oneProject.project_url}</li>
-        <li>${oneProject.added_date}</li>
-    
-    </ul>
+<div class="field">
+    <label class="label">
+        Project Name: 
+    </label>
+    ${oneProject.project_name}
+</div>
+
+<div class="field">
+    <label class="label">
+        Short Description (Limit 280 Characters): 
+    </label>
+    ${oneProject.project_description}
+</div>
+<div class="field">
+    <label class="label">
+        GitHub Repo: 
+    </label>
+    ${oneProject.github_repo}
+</div>
+<div class="field">
+    <label class="label">
+        Url: 
+    </label>
+    ${oneProject.project_url}
+</div>
+<div class="field">
+    <label class="label">
+        Cohort: 
+    </label>
+    ${oneProject.cohort_id}
+</div>
+
+<div class="field">
+    <label class="label">
+        Date Added: 
+    </label>
+    ${oneProject.added_date}
+</div>
+    <label class="label">
+        Team members
+    </label>
+    ${oneProject.users_list}
+
+<div class="field">
+    <label class="label">
+        Tags:
+    </label>
+    <div class="tags are-medium column">
+        ${projectTags.map(tag=> `<span data-tag_text="${tag.tag_text}" id="${tag.tag_text}" class="tag is-primary">${tag}</span>`).join('')}
+    </div>
+</div>
