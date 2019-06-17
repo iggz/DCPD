@@ -16,6 +16,7 @@
         <td class="is-hidden-mobile"><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
         <td><a href="${project.project_url}" target="_blank">${project.project_url}</a></td>
         <td>${project.users_list ? project.users_list : ''}</td>
+        <td><a href="/projects/edit/${project.project_id}">Edit</a></td>
     </tr>`
     ).join('')}
 </table>
