@@ -7,7 +7,7 @@
                 ${allTags.map(tag => `<option value = "${tag.tag_text}">${tag.tag_text}</option>`).join('')}
             </select>
         </div>
-        ${allTags.map(tag=> `<button data-tag_text="${tag.tag_text}" id="${tag.tag_text}" class="tag is-primary is-hidden-touch">${tag.tag_text}</button>`).join('')}
+        ${allTags.map(tag=> `<span data-tag_text="${tag.tag_text}" id="${tag.tag_text}" class="tag is-primary is-hidden-touch">${tag.tag_text}</span>`).join('')}
     </div>
     <div class="column">
         <button class="button is-link" type="submit">Apply Filters</button>
