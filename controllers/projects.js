@@ -112,13 +112,15 @@ exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
     const tagsList = await Tags.getAllTags();
     const projectTagsList = await Tags.getProjectsWithTags();
     let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
+    const projectUsersList = await Users.getProjectsWithUsers();
+    let projectsListWithTagsAndUsers = addUsersToProjects(projectsListWithTags, projectUsersList)
     let projectsListFilteredByTag = []
     if (req.body.tag != 'all') {
-        projectsListFilteredByTag = projectsListWithTags.filter(project => !!project.tags_list)
+        projectsListFilteredByTag = projectsListWithTagsAndUsers.filter(project => !!project.tags_list)
             .filter(project => project.tags_list.includes(req.body.tag))
         }
         else {
-            projectsListFilteredByTag = projectsListWithTags
+            projectsListFilteredByTag = projectsListWithTagsAndUsers
         }
     // console.log(projectsListFilteredByTag)
     res.render('template', {
@@ -137,13 +139,32 @@ exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
 
 exports.project_data_get = async (req,res) => {
     const projectData = await Projects.getProjectData(req.params.project_id);
-    const projectTags = await Tags.getSingleProjectTags(req.params.project_id)
+    console.log("ProjectData: " , projectData);
+    
+    const projectTagsList = await Tags.getProjectsWithTags();
+    console.log("ProjectTagsList: ", projectTagsList);
+    
+    let projectDataArray = [];
+    projectDataArray.push(projectData);
+
+    const projectUsersList = await Users.getProjectsWithUsers();
+
+
+    let projectsDataWithTags = addTagsToProjects(projectDataArray, projectTagsList)
+    console.log("projectsListWithTags: ", projectsDataWithTags);
+
+    let projectsDataWithTagsAndUsers = addUsersToProjects(projectsDataWithTags, projectUsersList)
+
+    let tagsArray = projectsDataWithTagsAndUsers[0].tags_list.split(",");
+    console.log("tagsArray: ", tagsArray)
+
     res.render('template', {
         locals: {
             title: 'Projects Data',
             is_logged_in: req.session.is_logged_in,
-            oneProject: projectData,
-            tagsList: projectTags
+            oneProject: projectsDataWithTagsAndUsers[0],
+            projectTags: tagsArray
+
         },
         partials: {
             partial: 'partial-one-project'
