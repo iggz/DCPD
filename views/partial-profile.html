@@ -1,18 +1,8 @@
 <section class="section">
-    <table class="table">
-        <thead>
-            <tr>
-                <td>First Name</td>
-                <td>Last Name</td>
-                <td>Email</td>
-                <td>Cohort</td>
-            </tr>
-        </thead>
-        <tr>
-            <td>${userData.first_name}</td>
-            <td>${userData.last_name}</td>
-            <td>${userData.user_email}</td>
-            <td>${userData.cohort_name}</td>
-        </tr>
-    </table>
+    <div>
+        <div style="margin-bottom:10px;"><strong>First Name:</strong> ${userData.first_name}</div>
+        <div style="margin-bottom:10px;"><strong>Last Name:</strong> ${userData.last_name}</div>
+        <div style="margin-bottom:10px;"><strong>Email:</strong> ${userData.user_email}</div>
+        <div style="margin-bottom:10px;"><strong>Cohort:</strong> ${userData.cohort_name}</div>
+    </div>
 </section>
