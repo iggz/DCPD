@@ -13,10 +13,9 @@
     `<tr>
         <td><a href="/projects/${project.project_id}">${project.project_name}</a></td>
         <td>${project.project_description}</td>
-        <td><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
+        <td class="is-hidden-mobile"><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
         <td><a href="${project.project_url}" target="_blank">${project.project_url}</a></td>
-        <td>Group Members Go Here</td>
-        <td><a href="/projects/edit/${project.project_id}">Edit</a></td>
+        <td>${project.users_list ? project.users_list : ''}</td>
     </tr>`
     ).join('')}
 </table>
