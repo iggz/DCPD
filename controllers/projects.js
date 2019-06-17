@@ -147,21 +147,36 @@ exports.project_data_get = async (req,res) => {
 
     const projectUsersList = await Users.getProjectsWithUsers();
 
-
     let projectsDataWithTags = addTagsToProjects(projectDataArray, projectTagsList)
     console.log("projectsListWithTags: ", projectsDataWithTags);
 
     let projectsDataWithTagsAndUsers = addUsersToProjects(projectsDataWithTags, projectUsersList)
+    console.log("projectsDataWithTagsAndUsers",projectsDataWithTagsAndUsers);
 
     let tagsArray = projectsDataWithTagsAndUsers[0].tags_list.split(",");
     console.log("tagsArray: ", tagsArray)
+
+
+    const cohortsList = await Projects.getCohorts();
+    cohortsList.forEach(cohort => {
+        if (cohort.cohort_id == projectsDataWithTagsAndUsers[0].cohort_id) {
+            let nameOfCohort = cohort.cohort_name;
+            const cohortsArray = [];
+            cohortsArray.push(nameOfCohort);
+            console.log("nameOfCohort: ", nameOfCohort)
+        }
+
+    })
+    // console.log("nameOfCohort: ", nameOfCohort)
+
 
     res.render('template', {
         locals: {
             title: 'Projects Data',
             is_logged_in: req.session.is_logged_in,
             oneProject: projectsDataWithTagsAndUsers[0],
-            projectTags: tagsArray
+            projectTags: tagsArray,
+            cohortName: cohortsArray
 
         },
         partials: {
