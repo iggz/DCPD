@@ -55,7 +55,6 @@ class User {
                 inner join cohorts
                     on users.cohort_id = cohorts.cohort_id
                 where users.user_email = $1`, [this.email]);
-            console.log(response);
             const { first_name, last_name, user_email, cohort_name } = response;
             return { first_name, last_name, user_email, cohort_name };
         } catch(err) {

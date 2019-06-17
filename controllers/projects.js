@@ -10,7 +10,6 @@ exports.projects_list_get = async (req, res) => {
     const projectUsersList = await Users.getProjectsWithUsers();
     let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
     let projectsListWithTagsAndUsers = addUsersToProjects(projectsListWithTags, projectUsersList)
-    console.log("projectsListWithTagsAndUsers:", projectsListWithTagsAndUsers);
     res.render('template', {
         locals: {
             title: 'Projects List',
@@ -37,7 +36,6 @@ function addTagsToProjects(projectsList, tagsList) {
 }
 
 function addUsersToProjects(projectsList, usersList) {
-    console.log(usersList)
     for (project in projectsList) {
         for (users in usersList) {
             if (projectsList[project].project_id == usersList[users].project_id) {
@@ -114,7 +112,6 @@ exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
     const tagsList = await Tags.getAllTags();
     const projectTagsList = await Tags.getProjectsWithTags();
     let projectsListWithTags = addTagsToProjects(projectsList, projectTagsList)
-    console.log(projectsListWithTags);
     let projectsListFilteredByTag = []
     if (req.body.tag != 'all') {
         projectsListFilteredByTag = projectsListWithTags.filter(project => !!project.tags_list)
@@ -211,7 +208,6 @@ exports.filter_by_tag = (data) => {
     allTags = document.querySelectorAll(".tag");
     allTags.forEach(tag => {
         tag.addEventListener('click', () => {
-            console.log(`filtering on ${tag.innerHTML}`)
             return data.filter(project.tags_list.contains(tag.innerHTML))
         })
     })

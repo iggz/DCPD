@@ -11,7 +11,6 @@ router.get('/auth/slack', async (req, res) => {
   request.get(`https://slack.com/api/oauth.access?client_id=${process.env['CLIENT_ID']}&client_secret=${process.env['CLIENT_SECRET']}&code=${req.query.code}`, async (error, response, body) => {
     const data = await JSON.parse(body);
     const team_id = data.team.id;
-    console.log(data);
     //if user is member of slack team, set session variables
     //then check to see if they are already in database
     if(team_id == process.env['TEAM_ID']) {

@@ -3,7 +3,6 @@ const express = require('express'),
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    console.log(req.session.is_logged_in);
     res.render('template', {
         locals: {
             title: 'Digitalcrafts Project Database',
