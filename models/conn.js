@@ -8,6 +8,7 @@ const options = {
     host: 'localhost',
     database: 'dcpd',
     user: 'ubuntu'
+}
 
 const db = pgp(options);
 
