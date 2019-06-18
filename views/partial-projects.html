@@ -1,28 +1,28 @@
 <form method="POST" class="columns is-vcentered" style="align-items:flex-start">
     
-    <div class="tags are-medium column">
+    <div class="tags are-medium  is-one-fifth">
         <div class="select" style="margin-bottom: calc(.375em - 1px)">
             <select id="tag-selector" name="tag">
-                <option value="all">Select Tag to Filter</option>
+                <option value="all">Select Tag</option>
                 ${allTags.map(tag => `<option value = "${tag.tag_text}">${tag.tag_text}</option>`).join('')}
             </select>
         </div>
         ${allTags.map(tag=> `<span data-tag_text="${tag.tag_text}" id="${tag.tag_text}" class="tag is-primary is-hidden-touch">${tag.tag_text}</span>`).join('')}
     </div>
-    <div class="column">
+    <div class="column is-four-fifths">
         <button class="button is-link" type="submit">Apply Filters</button>
             <table class="table">
                 <thead>
                     <tr>
                         <td>Name</td>
                         <td>Short Description</td>
-                        <td>GitHub Repo</td>
-                        <td class="is-hidden-touch">URL</td>
+                        <!-- <td>GitHub Repo</td> -->
+                        <!-- <td class="is-hidden-touch">URL</td> -->
                         <td class="is-hidden-touch">Group Members</td>
                         <td class="is-hidden-touch">
                             <div class="select">
                                 <select id="cohort-selector" name="cohort_id">
-                                    <option value = "all">Select Cohort to Filter</option>
+                                    <option value = "all">Select Cohort</option>
                                     ${allCohorts.map(cohort => `<option value = "${cohort.cohort_id}">${cohort.cohort_name}</option>`).join('')}
                                 </select>
                             </div>
@@ -33,8 +33,8 @@
                 `<tr>
                     <td><a href="/projects/${project.project_id}">${project.project_name}</a></td>
                     <td>${project.project_description}</td>
-                    <td><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td>
-                    <td class="is-hidden-touch"><a href="${project.project_url}" target="_blank">${project.project_url}</a></td>
+                    <!-- <td><a href="${project.github_repo}" target="_blank">${project.github_repo}</a></td> -->
+                    <!-- <td class="is-hidden-touch"><a href="${project.project_url}" target="_blank">${project.project_url}</a></td> -->
                     <td class="is-hidden-touch">${project.users_list ? project.users_list : ''}</td>
                     <td class="is-hidden-touch">${project.cohort_name}</td>
                 </tr>`
