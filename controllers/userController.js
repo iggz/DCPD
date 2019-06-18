@@ -7,7 +7,7 @@ exports.profile_get = async (req, res) => {
     const userData = await userInstance.getProfile();
     res.render('template', {
         locals: {
-            title: 'User Profile',
+            title: 'My Profile',
             userData: userData,
             is_logged_in: req.session.is_logged_in
         },
