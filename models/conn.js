@@ -10,7 +10,6 @@ const options = {
     user: 'ubuntu'
 }
 
-
 const db = pgp(options);
 
 module.exports = db;
