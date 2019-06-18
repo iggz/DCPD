@@ -12,7 +12,7 @@ exports.projects_list_get = async (req, res) => {
     let projectsListWithTagsAndUsers = addUsersToProjects(projectsListWithTags, projectUsersList)
     res.render('template', {
         locals: {
-            title: 'Projects List',
+            title: 'The DigitalCrafts Project Database',
             is_logged_in: req.session.is_logged_in,
             allProjects: projectsListWithTagsAndUsers,
             allCohorts: cohortsList,
@@ -53,7 +53,7 @@ exports.my_projects_get = async (req, res) => {
     let projectsListWithUsers = addUsersToProjects(myProjects, projectUsersList)
     res.render('template', {
         locals: {
-            title: 'Your Projects',
+            title: 'My Projects',
             is_logged_in: req.session.is_logged_in,
             myProjectsList: projectsListWithUsers
         },
@@ -125,7 +125,7 @@ exports.projects_list_get_by_cohort_and_tag = async (req, res) => {
     // console.log(projectsListFilteredByTag)
     res.render('template', {
         locals: {
-            title: 'Projects List',
+            title: 'The DigitalCrafts Project Database',
             is_logged_in: req.session.is_logged_in,
             allProjects: projectsListFilteredByTag,
             allCohorts: cohortsList,
@@ -146,7 +146,10 @@ exports.project_data_get = async (req,res) => {
     const projectUsersList = await Users.getProjectsWithUsers();
     let projectsDataWithTagsAndUsers = addUsersToProjects(projectsDataWithTags, projectUsersList)
     console.log("projectsDataWithTags: ", projectsDataWithTags)
-    const tagsArray = projectsDataWithTagsAndUsers[0].tags_list.split(",");
+    
+    const tagsArray = (!!projectsDataWithTagsAndUsers[0].tags_list) ? 
+        projectsDataWithTagsAndUsers[0].tags_list.split(",") :
+        [];
     const cohortsList = await Projects.getCohorts();
     let cohortsArray = [];
     cohortsList.forEach(cohort => {
