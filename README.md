@@ -1,6 +1,6 @@
-The DigitalCrafts Project Database (DCPD)
----
-Live instance: http://ec2-18-224-8-223.us-east-2.compute.amazonaws.com/
+# The DigitalCrafts Project Database (DCPD)
+
+Live ec2 instance on AWS: http://ec2-18-224-8-223.us-east-2.compute.amazonaws.com/
 
 The DigitalCrafts Project Database is a full-stack project created for DigitalCrafts and built with Node, Express, PostgreSQL, HTML, CSS, JavaScript, Bulma, and ES6 Renderer. It was built with a team of 3 people over the course of 3 days in class. We built the DCPD to be a solution to a problem that many bootcamp students have: finding inspiration (or help) when building projects. Any DigitalCrafts student or alumni can submit a project to the database (via Slack authentication), and the database is viewable to everyone. This was a backend database project and thus a minimal amount of effort was spent on styling, although the site is still fully responsive.
 
