@@ -1,5 +1,4 @@
-# DCPD
-The DigitalCrafts Project Database 
+The DigitalCrafts Project Database (DCPD)
 ---
 Live instance: http://ec2-18-224-8-223.us-east-2.compute.amazonaws.com/
 
